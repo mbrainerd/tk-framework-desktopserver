@@ -87,12 +87,12 @@ class ShotgunAPI(object):
         self._logger = sgtk.platform.get_logger("api-v2")
         self._process_manager = process_manager
 
-        if constants.DISABLE_LEGACY_BROWSER_INTEGRATION_WORKAROUND in os.environ:
-            logger.debug("Legacy tank command pathway disabled.")
-            self._allow_legacy_workaround = False
-        else:
+        if constants.ENABLE_LEGACY_WORKAROUND in os.environ:
             logger.debug("Legacy tank command pathway allowed for classic configs.")
             self._allow_legacy_workaround = True
+        else:
+            logger.debug("Legacy tank command pathway disabled.")
+            self._allow_legacy_workaround = False
 
         if self._wss_key not in self.WSS_KEY_CACHE:
             self.WSS_KEY_CACHE[self._wss_key] = dict()
